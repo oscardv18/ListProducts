@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-dark p-2">
+  <a class="navbar-brand text-white" href="#" (click)="quitarFiltro()"
+    >Lista de Productos</a
+  >
+</nav>
+
+<div class="p-2 mt-5">
+  <div class="row">
+    <div class="col-md-3">
+      <!-- Barra lateral, por ejemplo, filtros -->
+      <div class="card">
+        <div class="card-body">
+          <!-- Contenido de la barra lateral -->
+          <h5>Filtrar por Marca</h5>
+          <div *ngFor="let marca of marcasUnicas">
+            <button (click)="filtrarPorMarca(marca)" class="btn btn-link">
+              {{ marca }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <!-- Listado de productos -->
+      <div class="row" *ngIf="productosFiltrados !== undefined; else data">
+        <!-- Producto 1 -->
+        <div class="col-md-4 mb-4" *ngFor="let product of productosFiltrados">
+          <div class="card">
+            <img
+              [src]="product.images[0].image"
+              class="card-img-top"
+              alt="Nombre del producto"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ product.title }}</h5>
+              <p class="card-text">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi
+                tempora fugit nobis ea a asperiores quas voluptas, corporis
+                eveniet eaque.
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <div class="font-weight-bold text-dark">
+                    ${{ product.regular_price.toFixed(2) }}
+                  </div>
+                  <small class="text-muted"
+                    >Disponible:
+                    {{ roundedStock(product.stock_quantity) }} unidades</small
+                  >
+                </div>
+                <div>
+                  <a href="#" class="btn btn-warning">Ver Detalles</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #noProducts>
+          <p>No hay productos disponibles.</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
